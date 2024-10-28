@@ -1,0 +1,189 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Make-It-All User page</title>
+
+    <style>
+        .navbar {
+            background-color: #d6d6d6;
+            padding: 15px;
+            border-bottom: 1.5px solid;
+            border-top: 1.5px solid;
+            border-radius: 0px;
+        }
+
+        .navbar a {
+            color: #000000;
+        }
+
+        body {
+            background-color: #fffd70;
+        }
+
+        .Personal, .Group, .FinishedTasks {
+            background-color: #ffffff;
+            float: left;
+            margin-left: 40px;
+            margin-top: 30px;
+            margin-bottom: 40px;
+            border-radius: 50px;
+            border: 1.5px solid;
+            padding: 25px;
+            width: 370px;
+            height: 370px;
+        }
+
+        .Progress {
+            margin-left: 285px;
+            background-color: #ffffff;
+            border: 1.5px solid;
+            width: 700px;
+            height: 60px;
+        }
+
+        .grey {
+            color:#7e7e7e;
+        }
+
+        .DueSoon {
+            color:#d60707;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .Overdue, .Completed, .InProgress {
+            border-left-style: solid;
+            border-width: 5px;
+            border-radius: 5px;
+            background-color: #efeded;
+            height: 25px;
+        }
+
+        .Overdue {
+            border-color: #ff0000;
+        }
+
+        .Completed {
+            border-color: #00ff1a;
+        }
+
+        .InProgress {
+            border-color: #00cfe1;
+        }
+
+        .Gap {
+            height: 10px;
+        }
+
+        p {
+            margin-left: 3px;
+        }
+
+        .bg-ProgressBar {
+            background-color: #00ff1a;
+        }
+
+    </style>
+</head>
+
+<body> 
+   
+    <nav class="navbar">
+        <a class="navbar-brand">
+            <img src="logo.png" width="50" height="50" alt="">
+        </a>
+          <div class="navbar-header">
+            <a class="navbar-brand">Make-It-All</a>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="#">Tasks</a>
+            </li>
+            <li>
+                <a href="#">Forum</a>
+            </li>
+            <li>
+                <a href="#">Sign Up</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+<div class="Personal">
+    <h3 class="header">Personal tasks</h3>
+    <div class="Overdue">
+        <p>Upload report 1 <span class="grey">- overdue </span></p>        
+    </div>
+    <div class="Gap"></div>
+    <div class="InProgress">
+        <p> Review data sheet 1 <span class="grey">- in progress </span></p>
+    </div>
+    <div class="Gap"></div>
+    <div class="InProgress">
+        <p> Review data sheet 2 <span class="grey">- in progress </span></p>
+    </div>
+    <div class="Gap"></div>
+    <div class="InProgress">
+        <p>Upload report 2 <span class="grey">- in progress </span></p>        
+    </div>
+    <div class="Gap"></div>
+    <div class="InProgress">
+        <p>Upload report 3 <span class="grey">- in progress </span><span class="DueSoon">- Due Soon</span></p>        
+    </div>
+</div>
+
+<div class="Group">
+    <h3 class="header">Group tasks</h3>
+    <div class="Overdue">
+        <p>Finish project 1<span class="grey">- overdue </span></p>
+    </div>
+    <div class="Gap"></div>
+    <div class="Overdue">
+        <p>Start project 2 <span class="grey">- overdue </span></p>
+    </div>
+    <div class="Gap"></div>
+    <div class="InProgress">
+        <p>Work on project 2 <span class="grey">- in progress </span></p>
+    </div>
+    <div class="Gap"></div>
+    <div class="InProgress">
+        <p>Start project 3 <span class="grey">- in progress </span><span class="DueSoon">- Due Soon</span></p>
+    </div>
+    <div class="Gap"></div>
+    <div class="InProgress">
+        <p>Review project 1 <span class="grey">- in progress </span><span class="DueSoon">- Due Soon</span></p>
+    </div>
+</div>
+
+<div class="FinishedTasks">
+    <h3 class="header">Finished tasks</h3>
+    <div class="Completed">
+        <p>Finish project 1<span class="grey">- completed</span></p>
+    </div>
+    <div class="Gap"></div>
+    <div class="Completed">
+        <p>Start project 2 <span class="grey">- completed</span></p>
+    </div>
+    <div class="Gap"></div>
+    <div class="Completed">
+        <p>Work on project 2 <span class="grey">- completed</span></p>
+    </div>
+    <div class="Gap"></div>
+    <div class="Completed">
+        <p>Start project 3 <span class="grey">- completed</span></p>
+    </div>
+    <div class="Gap"></div>
+    <div class="Completed">
+        <p>Review project 1 <span class="grey">- completed</span></p>
+    </div>
+</div>
+
+<div class="Progress">
+    <div class="progress-bar bg-ProgressBar" role="progressbar" style="width: 33%" aria-valuenow="33"></div>
+</div>
+
+</body>
+</html>
