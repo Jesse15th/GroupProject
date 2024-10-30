@@ -4,6 +4,7 @@
     <title>Make-It-All User page</title>
 
     <style>
+        /*Adjusting the way the nav bar looks*/
         .navbar {
             background-color: #d6d6d6;
             padding: 15px;
@@ -17,7 +18,7 @@
         }
 
         body {
-            background-color: #fffd70;
+            background-color: #eaeaea;
         }
 
         .Personal, .Group, .FinishedTasks {
@@ -59,7 +60,6 @@
             border-width: 5px;
             border-radius: 5px;
             background-color: #efeded;
-            height: 25px;
         }
 
         .Overdue {
@@ -74,116 +74,153 @@
             border-color: #00cfe1;
         }
 
-        .Gap {
-            height: 10px;
-        }
-
         p {
             margin-left: 3px;
+        }
+
+        .NewTask {
+            float: right;
+            margin-top: 90px;
         }
 
         .bg-ProgressBar {
             background-color: #00ff1a;
         }
 
+        footer {
+            margin-top: 20px;
+            padding: 20px;
+            display: block;
+            text-align: center;
+        }
+
     </style>
 </head>
 
 <body> 
-   
+    <!--Creating the navbar and its contents-->
     <nav class="navbar">
         <a class="navbar-brand">
-            <img src="logo.png" width="50" height="50" alt="">
+            <img src="logo.png" width="200" height="50" alt="">
         </a>
-          <div class="navbar-header">
-            <a class="navbar-brand">Make-It-All</a>
-          </div>
           <ul class="nav navbar-nav navbar-right">
             <li>
                 <a href="#">Tasks</a>
             </li>
             <li>
-                <a href="#">Forum</a>
+                <a href="mainforum.html">Forum</a>
             </li>
             <li>
-                <a href="#">Sign out</a>
+                <a href="main.html">Sign out</a>
             </li>
           </ul>
         </div>
       </nav>
 
+      <!--Creating the personal tasks section-->
 <div class="Personal">
     <h3 class="header">Personal tasks</h3>
     <div class="Overdue">
-        <p>Upload report 1 <span class="grey">- overdue </span></p>        
+        <p>Upload report 1 <span class="grey">- overdue </span></p>
     </div>
-    <div class="Gap"></div>
     <div class="InProgress">
         <p> Review data sheet 1 <span class="grey">- in progress </span></p>
     </div>
-    <div class="Gap"></div>
     <div class="InProgress">
         <p> Review data sheet 2 <span class="grey">- in progress </span></p>
     </div>
-    <div class="Gap"></div>
     <div class="InProgress">
-        <p>Upload report 2 <span class="grey">- in progress </span></p>        
+        <p>Upload report 2 <span class="grey">- in progress </span></p>       
     </div>
-    <div class="Gap"></div>
     <div class="InProgress">
-        <p>Upload report 3 <span class="grey">- in progress </span><span class="DueSoon">- Due Soon</span></p>        
+        <p>Upload report 3 <span class="grey">- in progress </span><span class="DueSoon">- Due Soon </span></p>   
+    </div>
+    <div class = "NewTask">
+        <button onclick="TaskName()" type="button">+</button>
     </div>
 </div>
 
+    <!--Creating the group tasks section-->
 <div class="Group">
     <h3 class="header">Group tasks</h3>
     <div class="Overdue">
         <p>Finish project 1<span class="grey">- overdue </span></p>
     </div>
-    <div class="Gap"></div>
     <div class="Overdue">
         <p>Start project 2 <span class="grey">- overdue </span></p>
     </div>
-    <div class="Gap"></div>
     <div class="InProgress">
         <p>Work on project 2 <span class="grey">- in progress </span></p>
     </div>
-    <div class="Gap"></div>
     <div class="InProgress">
         <p>Start project 3 <span class="grey">- in progress </span><span class="DueSoon">- Due Soon</span></p>
     </div>
-    <div class="Gap"></div>
     <div class="InProgress">
         <p>Review project 1 <span class="grey">- in progress </span><span class="DueSoon">- Due Soon</span></p>
     </div>
 </div>
 
+    <!--Creating the finished tasks section-->
 <div class="FinishedTasks">
     <h3 class="header">Finished tasks</h3>
     <div class="Completed">
-        <p>Finish project 1<span class="grey">- completed</span></p>
+        <p>Finish project 1<span class="grey">- completed </span></p>
     </div>
-    <div class="Gap"></div>
     <div class="Completed">
-        <p>Start project 2 <span class="grey">- completed</span></p>
+        <p>Start project 2 <span class="grey">- completed </span></p>
     </div>
-    <div class="Gap"></div>
     <div class="Completed">
-        <p>Work on project 2 <span class="grey">- completed</span></p>
+        <p>Work on project 2 <span class="grey">- completed </span></p>
     </div>
-    <div class="Gap"></div>
     <div class="Completed">
-        <p>Start project 3 <span class="grey">- completed</span></p>
+        <p>Start project 3 <span class="grey">- completed </span></p>
     </div>
-    <div class="Gap"></div>
     <div class="Completed">
-        <p>Review project 1 <span class="grey">- completed</span></p>
+        <p>Review project 1 <span class="grey">- completed </span></p>
     </div>
 </div>
 
+    <!--Creating the progress bar-->
 <div class="Progress">
     <div class="progress-bar bg-ProgressBar" role="progressbar" style="width: 33%" aria-valuenow="33"></div>
 </div>
+
+    <!--Creating the footer-->
+<footer>
+    <img src="PoweredBy.png" alt="">
+</footer>
+
+<script>
+    //the original number of completed tasks
+    var tasks = 5;
+
+    //taking the user input naming the task
+    function TaskName() {
+        let NewTaskName = prompt("Enter the name of the task");
+        if (NewTaskName != "") {
+            CreateTask(NewTaskName);
+        }
+    }
+
+    //creating a new task including using the user input
+    function CreateTask(TaskName) {
+        const Task = TaskName;
+        const NewDiv = document.querySelector(".Personal");
+        const CreateDiv = document.createElement("div");
+        const CreateP = document.createElement("p");
+        CreateDiv.className = "InProgress";
+        CreateP.innerHTML = Task + " <span class='grey'>- in progress </span>";
+        CreateDiv.appendChild(CreateP);
+        NewDiv.appendChild(CreateDiv);
+        tasks = tasks + 1;
+    }
+
+    //calculating the progress for the progress bar
+    function ProgressCalc() {
+        const completed = 5;
+        const progress = completed / tasks * 100
+    }
+</script>
 
 </body>
 </html>
