@@ -1,0 +1,123 @@
+/*global*/
+*{
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 14px;
+    background-color: darkgray;
+}
+
+
+/*##################################*/
+/*mainforum.html*/
+.container{
+    margin: 20px;
+    padding: 20px;
+}
+
+.table-head{
+    display: flex;
+}
+
+.table-head div{
+    padding: 5px;
+    margin: 2px;
+    font-weight: bold;
+}
+
+.table-head .title{
+    flex: 70%;
+}
+
+.table-head .author{
+    flex: 15%;
+}
+
+.table-head .creation{
+    flex: 15%;
+}
+
+.table-row .title, .table-head .author, .table-head .creation{
+    padding: 5px;
+    margin: 2px;
+}
+
+.table-row{
+    display: flex;
+}
+
+.table-row .title{
+    flex: 70%;
+}
+.table-row .author{
+    flex: 15%;
+}
+.table-row .creation{
+    flex: 15%;
+}
+footer{
+    margin-top: 20px;
+    padding: 20px;
+    display: block;
+    text-align: center;
+}
+
+/*####################################*/
+/*post.html*/
+.head{
+    display: flex;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.authors{
+    flex: 20%;
+}
+
+.content{
+    flex: 80%;
+}
+
+.body{
+    display: flex;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.body .authors .username{
+    font-size: 20px;
+}
+
+
+.body .content .comment button{
+    border:none;
+    padding:10px;
+    font-weight: bolder;
+    cursor: pointer;
+    float: right;
+}
+
+/* comment section */
+.comment-area{
+    margin-bottom:50px;
+}
+
+.comment-area textarea{
+    width: 100%;
+    min-height: 100px;
+    padding: 10px;
+    margin-block: 10px;
+}
+
+.comment-area input{
+    float: right;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.comment-area input:hover{
+    border: solid 1px #000000;
+}
