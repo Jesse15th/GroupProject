@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Leader Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+            position: relative;
+        }
+        .navbar {
+            margin-bottom: 20px;
+        }
+        .top-left-image {
+            width: 120px;
+            height: auto;
+            margin-right: 15px;
+        }
+        .task-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 5px solid #007bff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .overdue {
+            border-left: 5px solid #dc3545;
+        }
+        .requires-attention {
+            border-left: 5px solid #ffc107;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 250px;
+            margin: 0 auto;
+            padding: 0;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        #todo-form {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <img src="makeitall.png" alt="Dashboard Logo" class="top-left-image">
+        <div class="ml-auto">
+            <a href="home.html" class="btn btn-primary">Home</a>
+            <a href="forum.html" class="btn btn-secondary">Forum</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Team Leader Dashboard</h1>
+
+        <!-- Personal To-Do List -->
+        <section>
+            <h3>Personal To-Do List</h3>
+            
+            <!-- Show Add Task Button -->
+            <button id="show-form-btn" class="btn btn-primary mb-3">Add Task</button>
+
+            <!-- Add Task Form -->
+            <form id="todo-form">
+                <div class="form-group">
+                    <input type="text" id="new-task" class="form-control" placeholder="Enter a new task" required>
+                </div>
+                <button type="submit" class="btn btn-success">Submit Task</button>
+            </form>
+
+            <!-- Personal To-Do List Items -->
+            <div id="todo-list" style="margin-top: 20px;">
+                <!-- Dynamically populated tasks -->
+            </div>
+        </section>
+
+        <!-- Overview of Team Tasks -->
+        <section>
+            <h3>Overview of Team Tasks</h3>
+            <div id="team-tasks">
+                <!-- Dynamically populated team tasks -->
+            </div>
+        </section>
+
+        <!-- Graphical Representation of Task Progression -->
+        <section>
+            <h3>Task Progression</h3>
+            <div class="chart-container">
+                <canvas id="progressChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Alerts -->
+        <section>
+            <h3>Alerts</h3>
+            <div id="alerts">
+                <!-- Dynamically populated alerts -->
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        // Example data
+        let personalTodoList = [
+            { task: 'Review project proposal', status: 'pending' },
+            { task: 'Submit report to management', status: 'completed' }
+        ];
+
+        const teamTasks = [
+            { task: 'Design UI Mockup', status: 'in-progress', assignedTo: 'John' },
+            { task: 'Develop API Endpoints', status: 'completed', assignedTo: 'Sarah' },
+            { task: 'Testing and QA', status: 'overdue', assignedTo: 'Alex' }
+        ];
+
+        const alerts = [
+            { message: 'Task "Testing and QA" is overdue.', type: 'overdue' },
+            { message: 'John needs help with "UI Mockup".', type: 'requires-attention' }
+        ];
+
+        // Personal To-Do List
+        function loadTodoList() {
+            const todoListContainer = document.getElementById('todo-list');
+            todoListContainer.innerHTML = '';
+            personalTodoList.forEach((task, index) => {
+                const taskDiv = document.createElement('div');
+                taskDiv.classList.add('task-item');
+                taskDiv.innerHTML = `<strong>${task.task}</strong> - ${task.status}
+                    <button class="btn btn-danger btn-sm" onclick="removeTask(${index})">Remove</button>`;
+                todoListContainer.appendChild(taskDiv);
+            });
+        }
+
+        // Add New Task to the Personal To-Do List
+        function addTask(task) {
+            personalTodoList.push({ task, status: 'pending' });
+            loadTodoList();
+        }
+
+        // Remove Task from the Personal To-Do List
+        function removeTask(index) {
+            personalTodoList.splice(index, 1);
+            loadTodoList();
+        }
+
+        // Team Task Overview
+        function loadTeamTasks() {
+            const teamTasksContainer = document.getElementById('team-tasks');
+            teamTasks.forEach(task => {
+                const taskDiv = document.createElement('div');
+                taskDiv.classList.add('task-item');
+                if (task.status === 'overdue') taskDiv.classList.add('overdue');
+                taskDiv.innerHTML = `<strong>${task.task}</strong> - ${task.status} (Assigned to ${task.assignedTo})`;
+                teamTasksContainer.appendChild(taskDiv);
+            });
+        }
+
+        // Alerts
+        function loadAlerts() {
+            const alertsContainer = document.getElementById('alerts');
+            alerts.forEach(alert => {
+                const alertDiv = document.createElement('div');
+                alertDiv.classList.add('alert', alert.type === 'overdue' ? 'alert-danger' : 'alert-warning');
+                alertDiv.innerHTML = alert.message;
+                alertsContainer.appendChild(alertDiv);
+            });
+        }
+
+        // Chart for Task Progression
+        function loadProgressChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Completed', 'In Progress', 'Overdue'],
+                    datasets: [{
+                        data: [40, 50, 10],
+                        backgroundColor: ['#28a745', '#ffc107', '#dc3545']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: 0
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            });
+        }
+
+        // Initialize dashboard
+        function initDashboard() {
+            loadTodoList();
+            loadTeamTasks();
+            loadAlerts();
+            loadProgressChart();
+
+            const showFormBtn = document.getElementById('show-form-btn');
+            const todoForm = document.getElementById('todo-form');
+            showFormBtn.addEventListener('click', function() {
+                todoForm.style.display = 'block';
+                showFormBtn.style.display = 'none';
+            });
+
+            const form = document.getElementById('todo-form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const newTask = document.getElementById('new-task').value;
+                if (newTask) {
+                    addTask(newTask);
+                    document.getElementById('new-task').value = '';
+                    todoForm.style.display = 'none';
+                    showFormBtn.style.display = 'block';
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            initDashboard();
+        });
+    </script>
+</body>
+</html>
