@@ -129,7 +129,7 @@
             { message: 'John needs help with "UI Mockup".', type: 'requires-attention' }
         ];
 
-        // Personal To-Do List
+       
         function loadTodoList() {
             const todoListContainer = document.getElementById('todo-list');
             todoListContainer.innerHTML = '';
@@ -142,19 +142,18 @@
             });
         }
 
-        // Add New Task to the Personal To-Do List
+
         function addTask(task) {
             personalTodoList.push({ task, status: 'pending' });
             loadTodoList();
         }
 
-        // Remove Task from the Personal To-Do List
         function removeTask(index) {
             personalTodoList.splice(index, 1);
             loadTodoList();
         }
 
-        // Team Task Overview
+       
         function loadTeamTasks() {
             const teamTasksContainer = document.getElementById('team-tasks');
             teamTasks.forEach(task => {
@@ -166,7 +165,7 @@
             });
         }
 
-        // Alerts
+       
         function loadAlerts() {
             const alertsContainer = document.getElementById('alerts');
             alerts.forEach(alert => {
@@ -177,7 +176,7 @@
             });
         }
 
-        // Chart for Task Progression
+        
         function loadProgressChart() {
             const ctx = document.getElementById('progressChart').getContext('2d');
             new Chart(ctx, {
@@ -202,7 +201,7 @@
             });
         }
 
-        // Initialize dashboard
+      
         function initDashboard() {
             loadTodoList();
             loadTeamTasks();
