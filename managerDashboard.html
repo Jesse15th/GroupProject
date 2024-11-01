@@ -8,17 +8,41 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .navbar-custom {
+            background-color: #6c757d;
+        }
+        .navbar-brand img {
+            height: 60px;
+            width: auto;
+            object-fit: cover;
+        }
+        .overdue {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container mt-5">
-    <!-- Logo at the top left -->
-    <div class="row">
-        <div class="col-12">
-            <img src="IMG_4041.jpg" class="img-fluid" style="max-width: 200px;">
-        </div>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <a class="navbar-brand" href="#">
+        <img src="IMG_4041.jpg" alt="Logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link text-white" href="#">Forum</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#">Task</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#">Sign Out</a></li>
+        </ul>
     </div>
-    
+</nav>
+
+<div class="container mt-5">
     <h2 class="text-center mt-3">Manager Dashboard</h2>
 
     <!-- Donut chart for task statuses -->
@@ -29,46 +53,47 @@
     </div>
 
     <!-- Button to open task creation modal -->
-    <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#createTaskModal">Create New Task</button>
+    <div class="d-flex justify-content-center mt-4">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTaskModal">Create New Task</button>
+    </div>
 
-    <!-- Table to display tasks -->
-    <table class="table table-bordered table-hover mt-4">
-        <thead class="thead-dark">
-            <tr>
-                <th>Employee</th>
-                <th>Task</th>
-                <th>Status</th>
-                <th>Priority</th>
-            </tr>
-        </thead>
-        <tbody id="taskTableBody">
-            <!-- Dummy task rows -->
-            <tr>
-                <td>alice@makeitall.com</td>
-                <td>Set up development environment</td>
-                <td>Completed</td>
-                <td>High</td>
-            </tr>
-            <tr>
-                <td>bob@makeitall.com</td>
-                <td>Design user interface mockups</td>
-                <td>In-progress</td>
-                <td>Medium</td>
-            </tr>
-            <tr>
-                <td>charlie@makeitall.com</td>
-                <td>Prepare project documentation</td>
-                <td>Pending</td>
-                <td>Low</td>
-            </tr>
-            <tr>
-                <td>diana@makeitall.com</td>
-                <td>Test new feature implementation</td>
-                <td>In-progress</td>
-                <td>High</td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- Task Table -->
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Team</th>
+                    <th>Employee(s)</th>
+                    <th>Task</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Due Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="taskTableBody">
+                <!-- Default task rows -->
+                <tr>
+                    <td><span data-toggle="tooltip" title="alice@makeitall.com">Team A</span></td>
+                    <td>alice@makeitall.com</td>
+                    <td>Initial Task 1</td>
+                    <td>In-progress</td>
+                    <td>High</td>
+                    <td>2024-11-10</td>
+                    <td><button class="btn btn-danger btn-sm" onclick="deleteTask(this)">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><span data-toggle="tooltip" title="bob@makeitall.com">Team B</span></td>
+                    <td>bob@makeitall.com</td>
+                    <td>Initial Task 2</td>
+                    <td>Completed</td>
+                    <td>Medium</td>
+                    <td>2024-10-20</td>
+                    <td><button class="btn btn-danger btn-sm" onclick="deleteTask(this)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!-- Task Creation Modal -->
@@ -85,29 +110,57 @@
                 <form id="createTaskForm">
                     <div class="form-group">
                         <label for="taskTitle">Task Title</label>
-                        <input type="text" class="form-control" id="taskTitle" name="title" placeholder="Enter task title" required>
+                        <input type="text" class="form-control" id="taskTitle" placeholder="Enter task title" required>
                     </div>
                     <div class="form-group">
                         <label for="taskDescription">Description</label>
-                        <textarea class="form-control" id="taskDescription" name="description" rows="3" placeholder="Enter task description" required></textarea>
+                        <textarea class="form-control" id="taskDescription" rows="3" placeholder="Enter task description" required></textarea>
                     </div>
+
+                    <!-- Assignment type selection -->
                     <div class="form-group">
-                        <label for="assignedTo">Assign to (Employee Email)</label>
-                        <input type="email" class="form-control" id="assignedTo" name="assigned_to" placeholder="Enter employee email" required>
+                        <label for="assignmentType">Assign To:</label>
+                        <select class="form-control" id="assignmentType" onchange="toggleAssignmentFields()">
+                            <option value="individual">Individual</option>
+                            <option value="team">Team</option>
+                        </select>
                     </div>
+
+                    <!-- Single employee input field -->
+                    <div class="form-group" id="singleEmployeeGroup">
+                        <label for="assignedEmployee">Employee Email</label>
+                        <input type="email" class="form-control" id="assignedEmployee" placeholder="Enter employee email">
+                    </div>
+
+                    <!-- Team name and team members input fields -->
+                    <div id="teamFields" style="display: none;">
+                        <div class="form-group">
+                            <label for="teamName">Team Name</label>
+                            <input type="text" class="form-control" id="teamName" placeholder="Enter team name">
+                        </div>
+                        <div class="form-group">
+                            <label for="assignedEmployees">Assign to Employees (comma-separated emails)</label>
+                            <input type="text" class="form-control" id="assignedEmployees" placeholder="e.g., alice@makeitall.com, bob@makeitall.com">
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="taskPriority">Priority</label>
-                        <select class="form-control" id="taskPriority" name="priority">
+                        <select class="form-control" id="taskPriority">
                             <option value="low">Low</option>
                             <option value="medium">Medium</option>
                             <option value="high">High</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="dueDate">Due Date</label>
+                        <input type="date" class="form-control" id="dueDate" required>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="addDummyTask()">Create Task</button>
+                <button type="button" class="btn btn-primary" onclick="addTask()">Create Task</button>
             </div>
         </div>
     </div>
@@ -119,55 +172,105 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
-// Function to add dummy task to the table (for demo purposes)
-function addDummyTask() {
-    const taskTitle = document.getElementById('taskTitle').value;
-    const taskDescription = document.getElementById('taskDescription').value;
-    const assignedTo = document.getElementById('assignedTo').value;
-    const taskPriority = document.getElementById('taskPriority').value;
-
-    if (taskTitle && taskDescription && assignedTo) {
-        const taskTableBody = document.getElementById('taskTableBody');
-        const newRow = `
-            <tr>
-                <td>${assignedTo}</td>
-                <td>${taskTitle}</td>
-                <td>Pending</td>
-                <td>${taskPriority.charAt(0).toUpperCase() + taskPriority.slice(1)}</td>
-            </tr>
-        `;
-        taskTableBody.insertAdjacentHTML('beforeend', newRow);
-
-        // Clear form fields and hide modal
-        document.getElementById('createTaskForm').reset();
-        $('#createTaskModal').modal('hide');
-    } else {
-        alert('Please fill out all fields.');
-    }
-}
-
-// Donut chart configuration using Chart.js
+// Chart configuration
 const ctx = document.getElementById('taskStatusChart').getContext('2d');
-const taskStatusChart = new Chart(ctx, {
+let taskStatusChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
-        labels: ['In-progress', 'Completed', 'Pending'],
+        labels: ['In-progress', 'Completed', 'Pending', 'Overdue'],
         datasets: [{
-            data: [2, 1, 1],  // Example data: 2 In-progress, 1 Completed, 1 Pending
-            backgroundColor: ['#007bff', '#28a745', '#ffc107'],
-            borderColor: ['#007bff', '#28a745', '#ffc107'],
+            data: [1, 1, 0, 0],
+            backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545'],
+            borderColor: ['#007bff', '#28a745', '#ffc107', '#dc3545'],
             borderWidth: 1
         }]
     },
     options: {
         responsive: true,
         maintainAspectRatio: false,
-        legend: {
-            position: 'bottom',
-        }
+        legend: { position: 'bottom' }
     }
 });
-</script>
 
+// Function to update the chart
+function updateChart() {
+    const statuses = { 'In-progress': 0, 'Completed': 0, 'Pending': 0, 'Overdue': 0 };
+    const rows = document.querySelectorAll('#taskTableBody tr');
+
+    rows.forEach(row => {
+        const status = row.cells[3].innerText.trim();
+        if (statuses[status] !== undefined) statuses[status]++;
+    });
+
+    taskStatusChart.data.datasets[0].data = [
+        statuses['In-progress'],
+        statuses['Completed'],
+        statuses['Pending'],
+        statuses['Overdue']
+    ];
+    taskStatusChart.update();
+}
+
+// Toggle between individual and team assignment fields
+function toggleAssignmentFields() {
+    const assignmentType = document.getElementById('assignmentType').value;
+    document.getElementById('singleEmployeeGroup').style.display = assignmentType === 'individual' ? 'block' : 'none';
+    document.getElementById('teamFields').style.display = assignmentType === 'team' ? 'block' : 'none';
+}
+
+// Add a task to the table
+function addTask() {
+    const taskTitle = document.getElementById('taskTitle').value;
+    const taskDescription = document.getElementById('taskDescription').value;
+    const assignmentType = document.getElementById('assignmentType').value;
+    const taskPriority = document.getElementById('taskPriority').value;
+    const dueDate = document.getElementById('dueDate').value;
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    let assignedTo = '';
+    let teamName = 'N/A';
+
+    if (assignmentType === 'individual') {
+        assignedTo = document.getElementById('assignedEmployee').value;
+    } else {
+        teamName = document.getElementById('teamName').value;
+        assignedTo = document.getElementById('assignedEmployees').value;
+    }
+
+    const isOverdue = new Date(dueDate) < new Date(currentDate);
+    const statusText = isOverdue ? `<span class="overdue">Overdue</span>` : 'Pending';
+
+    if (taskTitle && taskDescription && assignedTo && dueDate) {
+        const taskTableBody = document.getElementById('taskTableBody');
+        const newRow = `
+            <tr>
+                <td><span data-toggle="tooltip" title="${assignedTo}">${teamName}</span></td>
+                <td>${assignedTo}</td>
+                <td>${taskTitle}</td>
+                <td>${statusText}</td>
+                <td>${taskPriority.charAt(0).toUpperCase() + taskPriority.slice(1)}</td>
+                <td>${dueDate}</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" onclick="deleteTask(this)">Delete</button>
+                </td>
+            </tr>
+        `;
+        taskTableBody.insertAdjacentHTML('beforeend', newRow);
+        updateChart();
+
+        document.getElementById('createTaskForm').reset();
+        $('#createTaskModal').modal('hide');
+        $('[data-toggle="tooltip"]').tooltip();
+    } else {
+        alert('Please fill out all fields.');
+    }
+}
+
+// Delete a task from the table
+function deleteTask(button) {
+    button.closest('tr').remove();
+    updateChart();
+}
+</script>
 </body>
 </html>
