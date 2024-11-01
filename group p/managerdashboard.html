@@ -148,8 +148,15 @@
         .InProgress p:hover {
             background-color: #e6f7ff; /* Light blue for in-progress items */
         }
-        .team-table { display: none; }
+        .team-table { display: none;
+            width: 70%; /* Adjust as needed */   
+             margin: 0 auto;  
+              font-size: 0.9rem;
+            padding-top: 20px; }
         .team-table table {
+            width: 100%;   
+             max-width: 500px; 
+              margin: 0 auto;
     background-color: #ffffff;
     border-radius: 8px;
     overflow: hidden;
@@ -166,6 +173,7 @@
 .team-table table th {
     padding: 15px;
     vertical-align: middle;
+    padding: 8px 12px;
 }
 
 .team-table table tbody tr:hover {
@@ -277,7 +285,7 @@
 
        <!-- Table to display tasks -->
 <div id="team-1-table" class="team-table">
-    <h4>Tasks for Team 1</h4>
+    
     <table class="table table-hover table-striped table-bordered">
         <thead>
             <tr class="table-primary text-center">
@@ -294,8 +302,16 @@
                 <td> Christian</td>
                 <td>Create financial monthly reporting template</td>
                 <td><span class="badge badge-danger">High</span></td>
-                <td>April 01</td>
+                <td>Nov 21</td>
                 <td><div class="progress"><div class="progress-bar progress-bar-custom" role="progressbar" style="width: 25%">25%</div></div></td>
+                
+            </tr>
+            <tr onclick="showTaskDetails(this)" class="table-light text-center" style="cursor: pointer;">
+                <td> Alexis</td>
+                <td>Review monthly improved financial /td>
+                <td><span class="badge badge-danger">Low</span></td>
+                <td>December 12</td>
+                <td><div class="progress"><div class="progress-bar progress-bar-custom" role="progressbar" style="width: 50%">50%</div></div></td>
                 
             </tr>
             
@@ -521,51 +537,53 @@
     const taskStatus = document.getElementById('taskStatus').value;
     const taskUpdate = document.getElementById('taskUpdate').value;
 
-    if (taskUpdate) {
-        alert(`Task updated successfully with status: ${taskStatus} and update: ${taskUpdate}`);
-        if (selectedTask) {
-            const taskTitle = selectedTask.innerText.split('-')[0].trim(); // Get task title
+    if (selectedTask) {
+        const taskTitle = selectedTask.innerText.split('-')[0].trim(); // Get task title
 
-            if (taskStatus === 'completed') {
-                const finishedTasksContainer = document.querySelector('.FinishedTasks');
-                const headerElement = finishedTasksContainer.querySelector('.header');
-                const newFinishedTaskHTML = `
-                    <div class="Completed">
-                        <p>${taskTitle} <span class="grey">- completed</span> <span class="grey">- ${taskUpdate}</span></p>
-                    </div>
-                    <div class="Gap"></div>
-                `;
-                headerElement.insertAdjacentHTML('afterend', newFinishedTaskHTML); // Insert below the header
-                selectedTask.parentElement.remove(); // Remove from original location
-            }else {
-                // Update the original task status
-                selectedTask.innerHTML = `${taskTitle} - ${taskStatus} <span class="grey">- ${taskUpdate}</span>`;
-            }
+        if (taskStatus === 'completed') {
+            const finishedTasksContainer = document.querySelector('.FinishedTasks');
+            const headerElement = finishedTasksContainer.querySelector('.header');
+            const updateText = taskUpdate ? `<span class="grey">- ${taskUpdate}</span>` : '';
+            const newFinishedTaskHTML = `
+                <div class="Completed">
+                    <p>${taskTitle} <span class="grey">- completed</span> ${updateText}</p>
+                </div>
+                <div class="Gap"></div>
+            `;
+            headerElement.insertAdjacentHTML('afterend', newFinishedTaskHTML); // Insert below the header
+            selectedTask.parentElement.remove(); // Remove from original location
+        } else {
+            // Update the original task status
+            const updateText = taskUpdate ? `<span class="grey">- ${taskUpdate}</span>` : '';
+            selectedTask.innerHTML = `${taskTitle} - ${taskStatus} ${updateText}`;
         }
-        document.getElementById('updateTaskForm').reset();
-        $('#updateTaskModal').modal('hide');
-    } else {
-        alert('Please provide an update on the task.');
     }
+    document.getElementById('updateTaskForm').reset();
+    $('#updateTaskModal').modal('hide');
+    alert(`Task updated successfully with status: ${taskStatus}${taskUpdate ? ` and update: ${taskUpdate}` : ''}`);
 }
+
 
 document.addEventListener("DOMContentLoaded", function() {
     // Event listener for team clicks
-    document.querySelectorAll('.team-table').forEach(function(teamElement) {
+    document.querySelectorAll('.Group .InProgress p').forEach(function(teamElement) {
         teamElement.addEventListener('click', function() {
             // Hide all team tables first
             document.querySelectorAll('.team-table').forEach(function(table) {
                 table.style.display = 'none';
             });
 
-            // Show the selected team's table
-            const selectedTable = document.getElementById('team-1-table');
-            if (selectedTable) {
-                selectedTable.style.display = 'block';
+            // Show Team 1 table if it's clicked
+            if (teamElement.innerText.includes('Team 1')) {
+                const selectedTable = document.getElementById('team-1-table');
+                if (selectedTable) {
+                    selectedTable.style.display = 'block';
+                }
             }
         });
     });
 });
+
 
     </script>
     
@@ -573,3 +591,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </body>
 </html>
+
