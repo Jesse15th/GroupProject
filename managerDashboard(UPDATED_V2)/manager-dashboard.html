@@ -434,56 +434,55 @@
                         </div>
                     </div>
                     
-                    <div class="row">
-                        <!-- Individual Tasks Card -->
+                     <div class="row">
                         <div class="col-lg-6 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Individual Tasks</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Personal Tasks</h6>
                                 </div>
-                                <div class="card-body" id="individual-task-list">
+                                <div class="card-body" id="personal-task-list">
                                     <div class="task-item">
-                                        <h4 class="small font-weight-bold" onclick="openTaskDetailsModal(this, 'JESSE')">Server Migration - JESSE<span class="float-right">20%</span></h4>
+                                        <h4 class="small font-weight-bold" onclick="openUpdateModal(this)">Assign task to team 9<span class="float-right">20%</span></h4>
                                         <div class="progress mb-4">
                                             <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Server Migration')">Delete</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Assign task to team 9')">Delete</button>
                                     </div>
                                     <br>
                                     <div class="task-item">
-                                        <h4 class="small font-weight-bold" onclick="openTaskDetailsModal(this, 'JWAINE')">Sales Tracking - JWAINE <span class="float-right">40%</span></h4>
+                                        <h4 class="small font-weight-bold" onclick="openUpdateModal(this)">Assign task to team 5<span class="float-right">40%</span></h4>
                                         <div class="progress mb-4">
                                             <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Sales Tracking')">Delete</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Assign task to team 5')">Delete</button>
                                     </div>
                                     <br>
                                     <div class="task-item">
-                                        <h4 class="small font-weight-bold" onclick="openTaskDetailsModal(this, 'PEDRO')">Customer Database - PEDRO<span class="float-right">60%</span></h4>
+                                        <h4 class="small font-weight-bold" onclick="openUpdateModal(this)">Oversee customer database<span class="float-right">60%</span></h4>
                                         <div class="progress mb-4">
                                             <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Customer Database')">Delete</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Oversee customer database')">Delete</button>
                                     </div>
                                     <br>
                                     <div class="task-item">
-                                        <h4 class="small font-weight-bold" onclick="openTaskDetailsModal(this, 'GABRIEL')">Payout Details - GABRIEL <span class="float-right">Complete!</span></h4>
+                                        <h4 class="small font-weight-bold" onclick="openUpdateModal(this)">Schedule meeting<span class="float-right">Complete!</span></h4>
                                         <div class="progress mb-4">
                                             <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Payout Details')">Delete</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Schedule meeting')">Delete</button>
                                     </div>
                                     <br>
                                     <div class="task-item">
-                                        <h4 class="small font-weight-bold" onclick="openTaskDetailsModal(this, 'CEDRICK')">Account Setup - CEDRICK<span class="float-right">Complete!</span></h4>
+                                        <h4 class="small font-weight-bold" onclick="openUpdateModal(this)">Speak to interns<span class="float-right">Complete!</span></h4>
                                         <div class="progress">
                                             <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <br>
-                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Account Setup')">Delete</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Speak to interns')">Delete</button>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-dark" onclick="addDummyTask('individual')">Create Task</button>
+                                <button type="button" class="btn btn-dark" onclick="addDummyTask('personal')">Create Task</button>
                             </div>
                         </div>
                     
@@ -540,60 +539,61 @@
                         </div>
                         
                     </div>
+                    
                     <div class="row">
-                        <!-- personal Tasks Card -->
-                        <div class="col-lg-6 mb-4">
+                        <div class="col-lg-6 mb-4" >
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Personal Tasks</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Employees Tasks</h6>
                                 </div>
-                                <div class="card-body" id="personal-task-list">
+                                <div class="card-body" id="individual-task-list">
                                     <div class="task-item">
-                                        <h4 class="small font-weight-bold" onclick="openUpdateModal(this)">Assign task to team 9<span class="float-right">20%</span></h4>
+                                        <h4 class="small font-weight-bold" onclick="openTaskDetailsModal(this, 'JESSE')">Server Migration - JESSE<span class="float-right">20%</span></h4>
                                         <div class="progress mb-4">
                                             <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Assign task to team 9')">Delete</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Server Migration')">Delete</button>
                                     </div>
                                     <br>
                                     <div class="task-item">
-                                        <h4 class="small font-weight-bold" onclick="openUpdateModal(this)">Assign task to team 5<span class="float-right">40%</span></h4>
+                                        <h4 class="small font-weight-bold" onclick="openTaskDetailsModal(this, 'JWAINE')">Sales Tracking - JWAINE <span class="float-right">40%</span></h4>
                                         <div class="progress mb-4">
                                             <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Assign task to team 5')">Delete</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Sales Tracking')">Delete</button>
                                     </div>
                                     <br>
                                     <div class="task-item">
-                                        <h4 class="small font-weight-bold" onclick="openUpdateModal(this)">Oversee customer database<span class="float-right">60%</span></h4>
+                                        <h4 class="small font-weight-bold" onclick="openTaskDetailsModal(this, 'PEDRO')">Customer Database - PEDRO<span class="float-right">60%</span></h4>
                                         <div class="progress mb-4">
                                             <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Oversee customer database')">Delete</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Customer Database')">Delete</button>
                                     </div>
                                     <br>
                                     <div class="task-item">
-                                        <h4 class="small font-weight-bold" onclick="openUpdateModal(this)">Schedule meeting<span class="float-right">Complete!</span></h4>
+                                        <h4 class="small font-weight-bold" onclick="openTaskDetailsModal(this, 'GABRIEL')">Payout Details - GABRIEL <span class="float-right">Complete!</span></h4>
                                         <div class="progress mb-4">
                                             <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Schedule meeting')">Delete</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Payout Details')">Delete</button>
                                     </div>
                                     <br>
                                     <div class="task-item">
-                                        <h4 class="small font-weight-bold" onclick="openUpdateModal(this)">Speak to interns<span class="float-right">Complete!</span></h4>
+                                        <h4 class="small font-weight-bold" onclick="openTaskDetailsModal(this, 'CEDRICK')">Account Setup - CEDRICK<span class="float-right">Complete!</span></h4>
                                         <div class="progress">
                                             <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <br>
-                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Speak to interns')">Delete</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteTask('Account Setup')">Delete</button>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-dark" onclick="addDummyTask('personal')">Create Task</button>
+                                <button type="button" class="btn btn-dark" onclick="addDummyTask('individual')">Create Task</button>
                             </div>
                         </div>
-                    </div>
+                        <!-- personal Tasks Card -->
                     
+                    </div>
                             <!--create task form-->
                             
                             <div class="modal-body" >
